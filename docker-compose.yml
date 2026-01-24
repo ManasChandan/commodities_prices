@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  spark:
+    build: .
+    container_name: pyspark-delta
+    ports:
+      - "8888:8888"   # JupyterLab
+      - "4040:4040"   # Spark UI
+    volumes:
+      - ./src:/opt/workspace
+      - ./warehouse:/opt/warehouse
+      - ./landing:/opt/landing
+    environment:
+      - SPARK_MODE=local
+      - PYSPARK_PYTHON=python3
