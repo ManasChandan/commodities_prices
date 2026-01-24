@@ -6,7 +6,8 @@ services:
     container_name: pyspark-delta
     ports:
       - "8888:8888"   # JupyterLab
-      - "4040:4040"   # Spark UI
+      - "4040:4040"   # Spark 
+      - "5050:5050"   # Streamlits
     volumes:
       - ./src:/opt/workspace
       - ./warehouse:/opt/warehouse
@@ -14,3 +15,5 @@ services:
     environment:
       - SPARK_MODE=local
       - PYSPARK_PYTHON=python3
+      - PYSPARK_DRIVER_PYTHON=python3
+    working_dir: /opt/workspace
