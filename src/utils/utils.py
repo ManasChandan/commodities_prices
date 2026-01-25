@@ -1,0 +1,62 @@
+import json
+import pyspark.sql.types as T
+from pyspark.sql import DataFrame, SparkSession
+
+
+def run_sql_file(file_path: str):
+    """
+    Runs a sql query written within a .sql file.
+
+    Args:
+        file_path (str): The path to the .sql file.
+
+    Returns:
+        DataFrame: The PySpark DataFrame.
+    """
+
+    # Creating a spark session, singleton class
+    spark = SparkSession.builder.getOrCreate()
+
+    # Read the SQL file
+    with open(file_path, "r") as f:
+        sql_query = f.read()
+
+    # Execute and store the result as a DataFrame
+    df = spark.sql(sql_query)
+
+    # Retuns the dataframe
+    return df
+
+
+def read_csv_with_schema(
+    file_path: str, schema_json_string: str, date_format: str
+) -> DataFrame:
+    """
+    Reads a CSV file into a PySpark DataFrame with a specified schema and date format.
+
+    Args:
+        spark (SparkSession): The active SparkSession.
+        file_path (str): The path to the CSV file.
+        schema_json_string (str): A JSON string representing the PySpark schema (StructType).
+        date_format (str): The format string for parsing dates (e.g., 'yyyy-MM-dd').
+
+    Returns:
+        DataFrame: The PySpark DataFrame.
+    """
+
+    # Creating a spark session, singleton class
+    spark = SparkSession.builder.getOrCreate()
+
+    # Convert JSON schema string to PySpark StructType
+    schema = T.StructType.fromJson(json.loads(schema_json_string))
+
+    df = spark.read.csv(
+        file_path,
+        header=True,
+        inferSchema=False,
+        mode="FAILFAST",
+        schema=schema,
+        dateFormat=date_format,
+    )
+
+    return df
