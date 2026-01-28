@@ -1,6 +1,11 @@
 import json
+
 import pyspark.sql.types as T
-from pyspark.sql import DataFrame, SparkSession
+from pyspark.sql import DataFrame, SparkSession, functions as F
+from delta.tables import DeltaTable
+
+ # Creating a spark session, singleton class
+spark = SparkSession.builder.getOrCreate()
 
 
 def run_sql_file(file_path: str):
@@ -13,9 +18,6 @@ def run_sql_file(file_path: str):
     Returns:
         DataFrame: The PySpark DataFrame.
     """
-
-    # Creating a spark session, singleton class
-    spark = SparkSession.builder.getOrCreate()
 
     # Read the SQL file
     with open(file_path, "r") as f:
@@ -60,3 +62,29 @@ def read_csv_with_schema(
     )
 
     return df
+
+def merge_with_commodity(
+    commodity_table_path: str,
+    commodity_df: DataFrame,
+    pipeline_run_datetime: str
+):
+    
+    commodity_table = DeltaTable.forPath(spark, commodity_table_path)
+
+    commodity_table.alias("target").merge(
+        commodity_df.alias("source"),
+        "target.id = source.id and target.is_current = true",
+    ).whenMatchedUpdate(
+        condition="target.commodity_name != source.commodity_name and target.is_current = true",
+        set={
+            "is_current": F.lit(False),
+            "effective_end_timestamp": F.lit(pipeline_run_datetime),
+            "updated_timestamp": F.lit(pipeline_run_datetime),
+        }
+    ).execute()
+
+    commodity_table_path.alias("target").merge(
+        commodity_df.alias("source"),
+        "target.id = source.id and target.is_current = false",
+    ).whenNotMatchedInsertAll().execute()
+            

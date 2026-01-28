@@ -5,5 +5,4 @@ CREATE TABLE IF NOT EXISTS commodity_prices (
     Currency STRING
 )
 USING DELTA
-CLUSTER BY (Commodity, Date)
 LOCATION '/opt/warehouse/commodity_prices';

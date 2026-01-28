@@ -29,6 +29,12 @@ DATA_GPR_EXPORT = {
 
 FULL_LOAD_PATH = "/opt/landing/full_load"
 
+COMMODITY_TABLE_PATH = "/opt/warehouse/commodities"
+COMMODITY_PRICE_TABLE_PATH = "/opt/warehouse/commodity_prices"
+ECONOMY_INDICATOR_TABLE_PATH = "/opt/warehouse/economy_indicators"
+ECONOMY_INDICATOR_NAME_TABLE_PATH = "/opt/warehouse/economy_indicator_names"
+
+
 # FILE LANDING MAPPING
 
 COMMODITIES_LANDING_FILENAMES = {
