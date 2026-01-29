@@ -3,7 +3,6 @@ import sys
 from datetime import datetime
 
 from pyspark.sql import SparkSession
-from pyspark.sql import functions as F
 
 sys.path.append(os.getcwd())
 
@@ -32,25 +31,11 @@ def create_commodity_dimensions_data():
 
     all_commodities = list(c.COMMODITIES_LANDING_FILENAMES.keys())
 
-    all_commodities_id = [hash(commodity) for commodity in all_commodities]
+    all_commodities_id = [i + 1 for i in range(len(all_commodities))]
 
     commodities_df = spark.createDataFrame(
         zip(all_commodities_id, all_commodities),
-        ["commodity_id", "commodity_name"],
-    )
-
-    commodities_df = commodities_df.withColumn(
-        "effective_start_timestamp", F.lit("0001-01-01T00:00:00")
-    )
-
-    commodities_df = commodities_df.withColumn(
-        "effective_end_timestamp", F.lit("9999-12-31T23:59:59")
-    )
-
-    commodities_df = commodities_df.withColumn("is_current", F.lit(True))
-
-    commodities_df = commodities_df.withColumn(
-        "updated_timestamp", F.current_timestamp()
+        ["id", "commodity_name"],
     )
 
     return commodities_df
@@ -65,8 +50,8 @@ def full_load():
 
     u.merge_with_commodity(
         commodity_table_path=c.COMMODITY_TABLE_PATH,
-        commodity_df=commodities_df,
-        pipeline_run_datetime=pipeline_run_datetime
+        source_df=commodities_df,
+        pipeline_time=pipeline_run_datetime
     )
 
 full_load()
