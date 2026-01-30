@@ -38,6 +38,7 @@ def create_commodity_dimensions_data():
         ["id", "commodity_name"],
     )
 
+
     return commodities_df
 
 def full_load():
