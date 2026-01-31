@@ -55,4 +55,4 @@ def full_load():
         pipeline_time=pipeline_run_datetime
     )
 
-full_load()
+full_load() # this is the main function calling. 
