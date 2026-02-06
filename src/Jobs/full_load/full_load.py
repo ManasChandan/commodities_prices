@@ -12,7 +12,6 @@ from config import config as c
 spark = SparkSession.builder.getOrCreate()
 
 
-
 def create_raw_tables():
 
     current_file_direcotry = os.path.dirname(os.path.abspath(__file__))
