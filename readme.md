@@ -7,6 +7,8 @@ I am considering various commodities and their associated prices to build this s
 
 More details would be added on the fly as I proceed with the project. 
 
+UPDATE 1 : The local system was frying my system, hence swithced to databricks
+
 Thanks. Give it a star if you like it. Cheers. 
 
 Manas
