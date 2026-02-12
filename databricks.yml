@@ -2,6 +2,9 @@
 bundle:
   name: commodities_prices
 
+include:
+  - resources/*.yml
+  
 targets:
   dev:
     mode: development
