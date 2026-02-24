@@ -21,9 +21,10 @@ Track your progress by checking off boxes. Estimated hours are guidelines — go
 
 ### 0.1 — Provision Your Databricks Environment
 
-- [ ] Sign up for **Databricks Community Edition** (free) or set up a trial workspace on AWS/Azure/GCP
-- [ ] Create a **cluster** (single-node is fine; use DBR 13.x or later for Unity Catalog support)
-- [ ] Familiarise yourself with the Workspace UI: Notebooks, Repos, Compute, SQL Warehouse, Catalog Explorer
+- [x] Sign up for **Databricks Community Edition** (free) or set up a trial workspace on AWS/Azure/GCP
+- [x] Create a **cluster** (single-node is fine; use DBR 13.x or later for Unity Catalog support)
+-     (Turns out free edtion only allows serverless compute)
+- [x] Familiarise yourself with the Workspace UI: Notebooks, Repos, Compute, SQL Warehouse, Catalog Explorer
 
 **📚 Research Scope:**
 - Understand the difference between **All-Purpose Clusters** (interactive, always-on) vs **Job Clusters** (ephemeral, triggered by a job). For a learning project, you'll use all-purpose clusters, but know the distinction — in production, job clusters are preferred for cost control.
@@ -34,10 +35,10 @@ Track your progress by checking off boxes. Estimated hours are guidelines — go
 
 ### 0.2 — Set Up Databricks Asset Bundles (DAB)
 
-- [ ] Install the **Databricks CLI** (`pip install databricks-cli` or the newer `databricks` CLI v0.200+)
-- [ ] Authenticate the CLI to your workspace (`databricks auth login`)
-- [ ] Initialise a DAB project: `databricks bundle init` using the default template
-- [ ] Understand the generated `databricks.yml` file structure
+- [x] Install the **Databricks CLI** (`pip install databricks-cli` or the newer `databricks` CLI v0.200+)
+- [x] Authenticate the CLI to your workspace (`databricks auth login`)
+- [x] Initialise a DAB project: `databricks bundle init` using the default template
+- [x] Understand the generated `databricks.yml` file structure
 - [ ] Create `dev` and `prod` targets in your bundle config
 
 **📚 Research Scope:**
@@ -50,8 +51,8 @@ Track your progress by checking off boxes. Estimated hours are guidelines — go
 
 ### 0.3 — Set Up Git Integration
 
-- [ ] Create a GitHub repository for the project
-- [ ] Connect your Databricks Workspace to GitHub via **Repos** (Workspace → Repos → Add Repo)
+- [x] Create a GitHub repository for the project
+- [x] Connect your Databricks Workspace to GitHub via **Repos** (Workspace → Repos → Add Repo)
 - [ ] Establish a folder structure (suggested below):
 
 ```
