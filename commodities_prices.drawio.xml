@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" version="29.6.0">
+  <diagram name="Commodity Prices Lakehouse Architecture" id="eTo69wd-D8jlt43gCc9f">
+    <mxGraphModel dx="1310" dy="1852" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="XW-abUKotM5dd0FAW8kd-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" value="BRONZE LAYER&#xa;Schema: commod_bronze_layer&#xa;&#xa;Volume: price_landing_zone&#xa;Directory:&#xa;gold/YYYYMMDD/file.csv&#xa;silver/YYYYMMDD/file.csv&#xa;&#xa;Raw Immutable Files" vertex="1">
+          <mxGeometry height="250" width="400" x="100" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="XW-abUKotM5dd0FAW8kd-26" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="SILVER LAYER&#xa;Schema: commod_silver_layer&#xa;&#xa;Table: commodity_prices_event&#xa;Grain: 1 row per date per commodity&#xa;MERGE on (commodity_name, date_of_observation)&#xa;DECIMAL(18,6)&#xa;&#xa;Represents Latest Clean Truth" vertex="1">
+          <mxGeometry height="280" width="450" x="700" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="XW-abUKotM5dd0FAW8kd-27" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="pipeline_run_info&#xa;&#xa;1 row per pipeline run&#xa;- run_id&#xa;- run_timestamp&#xa;- rows_processed&#xa;- is_passed&#xa;&#xa;Clustered: (pipeline_name, run_timestamp)" vertex="1">
+          <mxGeometry height="80" width="450" x="700" y="-50" as="geometry" />
+        </mxCell>
+        <mxCell id="XW-abUKotM5dd0FAW8kd-28" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="GOLD LAYER&#xa;Schema: commod_gold_layer&#xa;&#xa;Star Schema + Business Aggregates&#xa;&#xa;Business Logic Applied Here&#xa;(Weekend Adjustment, YoY Calculations)" vertex="1">
+          <mxGeometry height="450" width="760" x="260" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="XW-abUKotM5dd0FAW8kd-29" parent="XW-abUKotM5dd0FAW8kd-28" style="whiteSpace=wrap;html=1;" value="price_fact&#xa;Grain: 1 row per date per commodity&#xa;UNIQUE(dateid, commodity_id)" vertex="1">
+          <mxGeometry height="120" width="325.71428571428567" x="32.57142857142857" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="XW-abUKotM5dd0FAW8kd-30" parent="XW-abUKotM5dd0FAW8kd-28" style="whiteSpace=wrap;html=1;" value="date_dimension&#xa;- dateid&#xa;- year&#xa;- month&#xa;- week_of_year" vertex="1">
+          <mxGeometry height="120" width="271.4285714285714" x="423.4285714285714" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="XW-abUKotM5dd0FAW8kd-31" parent="XW-abUKotM5dd0FAW8kd-28" style="whiteSpace=wrap;html=1;" value="commodity_dimension (SCD2)&#xa;- effective_from&#xa;- effective_to&#xa;- is_active BOOLEAN" vertex="1">
+          <mxGeometry height="140" width="325.71428571428567" x="32.57142857142857" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="XW-abUKotM5dd0FAW8kd-32" parent="XW-abUKotM5dd0FAW8kd-28" style="whiteSpace=wrap;html=1;" value="yoy_weekly_change_ana&#xa;UNIQUE(commodity_id, year, week_of_year)" vertex="1">
+          <mxGeometry height="120" width="178.86" x="521.14" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="XW-abUKotM5dd0FAW8kd-33" parent="XW-abUKotM5dd0FAW8kd-28" style="whiteSpace=wrap;html=1;" value="yoy_monthly_change_ana&#xa;UNIQUE(commodity_id, year, month)" vertex="1">
+          <mxGeometry height="120" width="271.4285714285714" x="423.4285714285714" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="XW-abUKotM5dd0FAW8kd-34" edge="1" parent="1" source="XW-abUKotM5dd0FAW8kd-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;" target="XW-abUKotM5dd0FAW8kd-26" value="Ingest Raw Files&#xa;Incremental Load (file timestamp)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XW-abUKotM5dd0FAW8kd-35" edge="1" parent="1" source="XW-abUKotM5dd0FAW8kd-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;" target="XW-abUKotM5dd0FAW8kd-27" value="Track Run Metadata">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XW-abUKotM5dd0FAW8kd-36" edge="1" parent="1" source="XW-abUKotM5dd0FAW8kd-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;" target="XW-abUKotM5dd0FAW8kd-28" value="Transform to Star Schema&#xa;Generate Surrogate Keys&#xa;Apply Business Logic">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
