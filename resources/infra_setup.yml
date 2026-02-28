@@ -1,0 +1,9 @@
+resources:
+  jobs:
+    infra_setup:
+      name: infra_setup
+
+      tasks:
+        - task_key: infra_setup
+          notebook_task:
+            notebook_path: ../src/notebooks/setup_schemas/schema_setup.sql
