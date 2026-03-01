@@ -44,7 +44,7 @@ def get_optimized_commodity_data(spark, bronze_volume_path: str, last_run_time: 
             # Metadata Columns
             F.col("file_path").alias("source_file_path"),
             # 'file_modification_time' is the actual arrival/last-edit time in the Volume
-            F.col("file_modification_time").alias("file_ingestion_timestamp"),
+            F.col("file_modification_time").alias("file_ingestion_time"),
             
             # Extract commodity folder name from path
             F.element_at(F.split(F.col("file_path"), "/"), -2).alias("commodity_name")

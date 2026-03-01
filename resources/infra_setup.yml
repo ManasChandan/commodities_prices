@@ -7,3 +7,4 @@ resources:
         - task_key: infra_setup
           notebook_task:
             notebook_path: ../src/notebooks/setup_schemas/schema_setup.sql
+          max_retries: 0

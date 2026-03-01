@@ -18,5 +18,5 @@ CREATE SCHEMA IF NOT EXISTS commodity_prices.commod_gold_layer
 COMMENT 'Fact, Dimensions and the analytical tables';
 
 -- Create a managed volume for raw file storage
-CREATE VOLUME IF NOT EXISTS commod_bronze_layer.price_landing_zone
+CREATE VOLUME IF NOT EXISTS commodity_prices.commod_bronze_layer.price_landing_zone
 COMMENT 'External file storage for incoming commodity price files (CSV)';

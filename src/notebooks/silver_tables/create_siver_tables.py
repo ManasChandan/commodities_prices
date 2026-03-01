@@ -15,8 +15,8 @@ if TYPE_CHECKING:
 # COMMAND ----------
 
 silver_table_create_notebooks = [
-    "create_commodity_prices_events", 
-    "create_pipleine_metadata_table"
+    "create_commodity_prices_event", 
+    "create_pipeline_metadata_table"
 ]
 
 for silver_table in silver_table_create_notebooks:

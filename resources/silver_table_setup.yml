@@ -7,3 +7,4 @@ resources:
         - task_key: silver_table_setup
           notebook_task:
             notebook_path: ../src/notebooks/silver_tables/create_siver_tables.py
+          max_retries: 0

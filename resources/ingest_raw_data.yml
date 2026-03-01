@@ -1,0 +1,10 @@
+resources:
+  jobs:
+    ingest_raw_data:
+      name: ingest_raw_data
+
+      tasks:
+        - task_key: ingest_raw_data
+          notebook_task:
+            notebook_path: ../src/notebooks/ingest_data/ingest_data.py
+          max_retries: 0
