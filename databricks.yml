@@ -13,4 +13,14 @@ targets:
       host: https://dbc-b1ae0495-fc55.cloud.databricks.com
       root_path: /Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
 
+sync:
+  exclude:
+    - "readme.md"
+    - "docker-compose.yml"
+    - "Dockerfile"
+    - "spark-defaults.conf"
+    - "commodities_prices.drawio.xml"
+    - "claude_commodity_prices_checklist.md"
+    - "assets_for_markdown/"
+
 
