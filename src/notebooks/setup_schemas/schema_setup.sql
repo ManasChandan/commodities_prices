@@ -19,4 +19,4 @@ COMMENT 'Fact, Dimensions and the analytical tables';
 
 -- Create a managed volume for raw file storage
 CREATE VOLUME IF NOT EXISTS commodity_prices.commod_bronze_layer.price_landing_zone
-COMMENT 'External file storage for incoming commodity price files (CSV)';
+COMMENT 'Magaed file storage for incoming commodity price files (CSV)';
