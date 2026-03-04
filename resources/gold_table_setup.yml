@@ -1,0 +1,10 @@
+resources:
+  jobs:
+    gold_table_setup:
+      name: gold_table_setup
+
+      tasks:
+        - task_key: gold_table_setup
+          notebook_task:
+            notebook_path: ../src/notebooks/gold_tables/create_gold_tables.sql
+          max_retries: 0
